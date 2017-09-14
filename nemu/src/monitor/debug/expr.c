@@ -108,17 +108,3 @@ uint32_t expr(char *e, bool *success) {
   return 0;
 }
 
-int trans(char *e) {
-  int len, num, i, j;
-  len = strlen(e);
-  num = 0;
-  j = 1;
-  
-  for (i = len-1; i > 1; i--) {
-    num += (e[i]-'0')*j;
-    j *= 16;
-  }
-  printf("num = %d\n", num);
-  
-  return num;
-}
