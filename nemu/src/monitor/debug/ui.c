@@ -9,6 +9,7 @@
 
 void cpu_exec(uint64_t);
 uint32_t vaddr_read(vaddr_t addr, int len);
+int trans(char *e);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -126,15 +127,16 @@ static int cmd_x(char *args) {
     printf("Input invalid command!\n");
   }
   else {
-    int num = atoi(strtok(NULL, " "));
-    char *exp = strtok(NULL, " ");
-    printf("%dxxx%s\n", num, exp);
-    int i;
+    int num, addr, i;
+    char *exp;
+    num = atoi(strtok(NULL, " "));
+    exp = strtok(NULL, " ");
+    addr = trans(exp);
+
     for (i = 0; i < num; i++) {
-    //  printf("0x%x\n", vaddr_read(exp, 4));
-      exp += 4;
-    }
-    
+      printf("0x%x\n", vaddr_read(addr, 4));
+      addr += 4;
+    } 
   }
   return 0;
 }
@@ -176,4 +178,19 @@ void ui_mainloop(int is_batch_mode) {
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
+}
+
+int trans(char *e) {
+  int len, num, i, j;
+  len = strlen(e);
+  num = 0;
+  j = 1;
+
+  for (i = len-1; i > 1; i--) {
+    num += (e[i]-'0')*j;
+    j *= 16;
+  }
+  printf("num = %d\n", num);
+
+  return num;
 }
