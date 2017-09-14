@@ -38,6 +38,7 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 static int cmd_si(char *args);
+static int cmd_info(char *args);
 
 static struct {
   char *name;
@@ -48,6 +49,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Let the program execute n steps", cmd_si },
+  { "info", "Display the register status and the watchpoint information", cmd_info},
   /* TODO: Add more commands */
 };
 
@@ -57,9 +59,6 @@ static int cmd_help(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   //printf("111%s\n%s\n", args, arg);
-  printf("%x\n", cpu.eax);
-  printf("eax:	0x%x	%d\n",cpu.eax,cpu.eax);
-  printf("edx:	0x%x	%d\n",cpu.edx,cpu.edx);
   int i;
 
   if (arg == NULL) {
@@ -91,6 +90,31 @@ static int cmd_si(char *args) {
   }
 
   cpu_exec(steps);
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  if (args == NULL) {
+    printf("Please input the info r or info w\n");
+  }
+  else {
+    if (strcmp(args, "r") == 0) {
+      printf("eax:  0x%x    %d\n",cpu.eax,cpu.eax);
+      printf("edx:  0x%x    %d\n",cpu.edx,cpu.edx);
+      printf("ecx:  0x%x    %d\n",cpu.ecx,cpu.ecx);
+      printf("ebx:  0x%x    %d\n",cpu.ebx,cpu.ebx);
+      printf("ebp:  0x%x    %d\n",cpu.ebp,cpu.ebp);
+      printf("esi:  0x%x    %d\n",cpu.esi,cpu.esi);
+      printf("esp:  0x%x    %d\n",cpu.esp,cpu.esp);
+      printf("eip:  0x%x    %d\n",cpu.eip,cpu.eip);
+    }
+    else if (strcmp(args, "w") == 0) {
+
+    }
+    else {
+      printf("The info command need a parameter 'r' or 'w'\n");
+    }
+  }
   return 0;
 }
 
