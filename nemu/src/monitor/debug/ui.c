@@ -194,7 +194,7 @@ int trans(char *e) {
     num += (e[i]-'0')*j;
     j *= 16;
   }
-  printf("num = %d\n", num);
+//  printf("num = %d\n", num);
 
   return num;
 }
