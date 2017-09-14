@@ -56,7 +56,7 @@ static struct {
 static int cmd_help(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
-  printf("%s\n%s\n", args, arg);
+  printf("111%s\n%s\n", args, arg);
   int i;
 
   if (arg == NULL) {
