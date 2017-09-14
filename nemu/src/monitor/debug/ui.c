@@ -183,7 +183,6 @@ void ui_mainloop(int is_batch_mode) {
   }
 }
 
-
 int trans(char *e) {
   int len, num, i, j;
   len = strlen(e);
