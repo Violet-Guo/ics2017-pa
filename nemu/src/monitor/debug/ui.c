@@ -8,6 +8,8 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+uint32_t vaddr_read(vaddr_t addr, int len);
+int trans(char *e);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -38,6 +40,9 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 static int cmd_si(char *args);
+static int cmd_info(char *args);
+static int cmd_x(char *args);
+
 
 static struct {
   char *name;
@@ -86,12 +91,58 @@ static int cmd_si(char *args) {
     steps = 1;
   }
   else{
-    steps = atoi(args);
+    steps = atoi(strtok(NULL, " "));
   }
 
   cpu_exec(steps);
   return 0;
 }
+
+static int cmd_info(char *args) {
+  if (args == NULL) {
+    printf("Please input the info r or info w\n");
+  }
+  else {
+    if (strcmp(args, "r") == 0) {
+      printf("eax:  0x%x    %d\n", cpu.eax, cpu.eax);
+      printf("edx:  0x%x    %d\n", cpu.edx, cpu.edx);
+      printf("ecx:  0x%x    %d\n", cpu.ecx, cpu.ecx);
+      printf("ebx:  0x%x    %d\n", cpu.ebx, cpu.ebx);
+      printf("ebp:  0x%x    %d\n", cpu.ebp, cpu.ebp);
+      printf("esi:  0x%x    %d\n", cpu.esi, cpu.esi);
+      printf("esp:  0x%x    %d\n", cpu.esp, cpu.esp);
+      printf("eip:  0x%x    %d\n", cpu.eip, cpu.eip);
+    }
+    else if (strcmp(args, "w") == 0) {
+
+    }
+    else {
+      printf("The info command need a parameter 'r' or 'w'\n");
+    }
+  }
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command!\n");
+  }
+  else {
+    int num, addr, i;
+    char *exp;
+    num = atoi(strtok(NULL, " "));
+    exp = strtok(NULL, " ");
+    addr = trans(exp);
+
+    for (i = 0; i < num; i++) {
+      printf("0x%x\n", vaddr_read(addr, 4));
+      addr += 4;
+    }
+
+  }
+  return 0;
+}
+
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
