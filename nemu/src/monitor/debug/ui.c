@@ -37,6 +37,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si(char *args);
 
 static struct {
   char *name;
@@ -46,7 +47,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si", "Let the program execute n steps", cmd_si },
   /* TODO: Add more commands */
 
 };
@@ -56,7 +57,7 @@ static struct {
 static int cmd_help(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
-  printf("111%s\n%s\n", args, arg);
+  //printf("111%s\n%s\n", args, arg);
   int i;
 
   if (arg == NULL) {
@@ -74,6 +75,15 @@ static int cmd_help(char *args) {
     }
     printf("Unknown command '%s'\n", arg);
   }
+  return 0;
+}
+
+static int cmd_si(char *args) {
+  /*get the steps number*/
+  int steps;
+  steps = atoi(strtok(NULL, " "));
+  cpu_exec(steps);
+
   return 0;
 }
 
