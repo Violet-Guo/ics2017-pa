@@ -81,9 +81,14 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args) {
   /*get the steps number*/
   int steps;
-  steps = atoi(strtok(NULL, " "));
-  cpu_exec(steps);
+  if (args == NULL){
+    steps = 1;
+  }
+  else{
+    steps = atoi(strtok(NULL, " "));
+  }
 
+  cpu_exec(steps);
   return 0;
 }
 
