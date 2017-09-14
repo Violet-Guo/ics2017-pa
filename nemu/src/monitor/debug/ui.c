@@ -57,6 +57,7 @@ static int cmd_help(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   //printf("111%s\n%s\n", args, arg);
+  printf("%x\n", cpu.eax);
   int i;
 
   if (arg == NULL) {
