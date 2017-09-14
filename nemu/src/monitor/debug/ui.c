@@ -8,6 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint64_t);
+uint32_t vaddr_read(vaddr_t addr, int len);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -39,6 +40,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
+static int cmd_x(char *args);
 
 static struct {
   char *name;
@@ -50,6 +52,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Let the program execute n steps", cmd_si },
   { "info", "Display the register status and the watchpoint information", cmd_info},
+  { "x", "Caculate the value of expression and display the content of the address", cmd_x},
   /* TODO: Add more commands */
 };
 
@@ -114,6 +117,24 @@ static int cmd_info(char *args) {
     else {
       printf("The info command need a parameter 'r' or 'w'\n");
     }
+  }
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command!\n");
+  }
+  else {
+    int num = atoi(strtok(NULL, " "));
+    char *exp = strtok(NULL, " ");
+    printf("xxx%s\n", exp);
+    int i;
+    for (i = 0; i < num; i++) {
+    //  printf("0x%x\n", vaddr_read(exp, 4));
+      exp += 4;
+    }
+    
   }
   return 0;
 }
