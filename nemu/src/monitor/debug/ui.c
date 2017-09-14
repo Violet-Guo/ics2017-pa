@@ -49,7 +49,6 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Let the program execute n steps", cmd_si },
   /* TODO: Add more commands */
-
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
