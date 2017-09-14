@@ -84,7 +84,7 @@ static int cmd_si(char *args) {
     steps = 1;
   }
   else{
-    steps = atoi(strtok(NULL, " "));
+    steps = atoi(args);
   }
 
   cpu_exec(steps);
