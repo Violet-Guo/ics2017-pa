@@ -128,7 +128,7 @@ static int cmd_x(char *args) {
   else {
     int num = atoi(strtok(NULL, " "));
     char *exp = strtok(NULL, " ");
-    printf("xxx%s\n", exp);
+    printf("%dxxx%s\n", num, exp);
     int i;
     for (i = 0; i < num; i++) {
     //  printf("0x%x\n", vaddr_read(exp, 4));
