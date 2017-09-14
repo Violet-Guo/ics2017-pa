@@ -141,6 +141,7 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);
@@ -180,6 +181,7 @@ void ui_mainloop(int is_batch_mode) {
   }
 }
 
+
 int trans(char *e) {
   int len, num, i, j;
   len = strlen(e);
@@ -190,7 +192,7 @@ int trans(char *e) {
     num += (e[i]-'0')*j;
     j *= 16;
   }
-  printf("num = %d\n", num);
+//  printf("num = %d\n", num);
 
   return num;
 }
