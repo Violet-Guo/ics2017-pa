@@ -58,6 +58,8 @@ static int cmd_help(char *args) {
   char *arg = strtok(NULL, " ");
   //printf("111%s\n%s\n", args, arg);
   printf("%x\n", cpu.eax);
+  printf("eax:	0x%x	%d\n",cpu.eax,cpu.eax);
+  printf("edx:	0x%x	%d\n",cpu.edx,cpu.edx);
   int i;
 
   if (arg == NULL) {
