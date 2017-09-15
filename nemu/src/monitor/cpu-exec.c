@@ -21,10 +21,11 @@ void cpu_exec(uint64_t n) {
   nemu_state = NEMU_RUNNING;
 
   bool print_flag = n < MAX_INSTR_TO_PRINT;
-
+  printf("i am out the for\n");
   for (; n > 0; n --) {
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
+    printf("i am in the cpu exec\n");
     exec_wrapper(print_flag);
 
 #ifdef DEBUG
