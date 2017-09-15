@@ -14,7 +14,7 @@ void exec_wrapper(bool);
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
-  printf("n = %lu\n", n);
+  //printf("n = %lu\n", n);
   if (nemu_state == NEMU_END) {
     printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
     return;
@@ -26,7 +26,7 @@ void cpu_exec(uint64_t n) {
   for (; n > 0; n --) {
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
-    printf("%lu\ni am in the cpu exec\n", n);
+    //printf("%lu\ni am in the cpu exec\n", n);
     exec_wrapper(print_flag);
 
 #ifdef DEBUG
