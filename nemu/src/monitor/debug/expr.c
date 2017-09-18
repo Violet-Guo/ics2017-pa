@@ -69,7 +69,7 @@ static bool make_token(char *e) {
     for (i = 0; i < NR_REGEX; i ++) {
       printf("in the for\n");
       printf("regexec = %d\npmatch.rm_so = %d\n", regexec(&re[i], e + position, 1, &pmatch, 0), pmatch.rm_so);
-      printf("%d, %d\n", regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0, pmatch.rm_so == 0);
+      printf("%d, %d\n", regexec(&re[i], e + position, 1, &pmatch, 0) == 0, pmatch.rm_so == 0);
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 	printf("in the if\n");
         char *substr_start = e + position;
