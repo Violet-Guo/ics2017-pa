@@ -97,6 +97,8 @@ static bool make_token(char *e) {
           default: TODO();
         }
 
+        printf("token = %s\n", tokens[nr_token-1].str);
+
         break;
       }
     }
