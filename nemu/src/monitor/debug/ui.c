@@ -7,9 +7,11 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void cpu_exec(uint64_t);
-uint32_t vaddr_read(vaddr_t addr, int len);
 int trans(char *e);
+void cpu_exec(uint64_t);
+void init_regex();
+uint32_t expr(char *e, bool *success);
+uint32_t vaddr_read(vaddr_t addr, int len);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -42,7 +44,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
-
+static int cmd_p(char *args);
 
 static struct {
   char *name;
@@ -55,6 +57,7 @@ static struct {
   { "si", "Let the program execute n steps", cmd_si },
   { "info", "Display the register status and the watchpoint information", cmd_info},
   { "x", "Caculate the value of expression and display the content of the address", cmd_x},
+  { "p","Calculate an expression", cmd_p},
   /* TODO: Add more commands */
 };
 
@@ -140,6 +143,23 @@ static int cmd_x(char *args) {
     }
 
   }
+  return 0;
+}
+
+static int cmd_p(char *args) {
+
+  init_regex();
+
+  bool success = true;
+  int result = expr(args, &success);
+
+  if (success) {
+    printf("result = %d\n", result);
+  }
+  else {
+    printf("Invalid expression!\n");
+  }
+
   return 0;
 }
 
