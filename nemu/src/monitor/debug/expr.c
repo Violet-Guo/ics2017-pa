@@ -71,7 +71,7 @@ static bool make_token(char *e) {
       //printf("regexec = %d\npmatch.rm_so = %d\n", regexec(&re[i], e + position, 1, &pmatch, 0), pmatch.rm_so);
       //printf("%d\n", pmatch.rm_so);
       //printf("%d, %d\n", regexec(&re[i], e + position, 1, &pmatch, 0) == 0, pmatch.rm_so == 0);
-      printf("%d\n", pmatch.rm_so);
+      //printf("%d\n", pmatch.rm_so);
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 	printf("in the if\n");
         char *substr_start = e + position;
