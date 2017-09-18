@@ -83,7 +83,15 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
+        tokens[nr_token].type = rules[i].token_type;
         switch (rules[i].token_type) {
+          case TK_NOTYPE:
+          case NUM:
+            for (i = 0; i < substr_len; i++)
+              tokens[nr_token].str[i] = substr_start[i];
+            tokens[nr_token].str[i] = '\0';
+            nr_token++;
+            break;
           default: TODO();
         }
 
