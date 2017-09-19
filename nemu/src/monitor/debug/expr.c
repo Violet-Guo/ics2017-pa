@@ -118,6 +118,7 @@ uint32_t expr(char *e, bool *success) {
     return 0;
   }
   printf("expr\n");
+  printf("nr_token = %d\n", nr_token);
   int i;
   for (i = 0; i < nr_token; i++) {
     printf("token%d = %s\n", i, tokens[nr_token].str);
