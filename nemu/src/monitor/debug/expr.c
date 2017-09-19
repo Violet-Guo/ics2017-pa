@@ -111,7 +111,6 @@ static bool make_token(char *e) {
 }
 
 uint32_t expr(char *e, bool *success) {
-  printf("e = %s\n", e);
   printf("make_token = %d\n", make_token(e));
   if (!make_token(e)) {
     *success = false;
