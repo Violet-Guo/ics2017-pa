@@ -92,6 +92,10 @@ static bool make_token(char *e) {
             tokens[nr_token].str[i] = '\0';
             nr_token++;
             break;
+          case ADD:
+            tokens[nr_token].str[0] = substr_start[0];
+            tokens[nr_token++].str[1] = '\0';
+            break;
           default: TODO();
         }
 
