@@ -29,8 +29,8 @@ static struct rule {
   {"\\-", MINUS},       // minus
   {"\\*", MULTIPLY},    // multiply
   {"\\/", DIVIDE},      // divide
-  {"(", LBRACKET},      // left bracket
-  {")", RBRACKET}       // right bracket
+  {"\\(", LBRACKET},      // left bracket
+  {"\\)", RBRACKET}       // right bracket
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
