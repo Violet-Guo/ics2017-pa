@@ -26,8 +26,8 @@ static struct rule {
   {"\\+", ADD},         // plus
   {"==", TK_EQ},        // equal
   {"[0-9]+", NUM},      // numbers
-  {"\\/", MINUS},       // minus
-  {"\\*", MULTIPLY}     //multiply
+  {"\\-", MINUS},       // minus
+  {"\\*", MULTIPLY}     // multiply
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
