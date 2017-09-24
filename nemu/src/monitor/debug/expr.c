@@ -296,7 +296,7 @@ int find_dominant_operator(int p, int q) {
     }
     else {
       opp = priority(i);
-      if (opp > op) {
+      if (opp >= op) {
         pos = i;
         op = opp;
       }
