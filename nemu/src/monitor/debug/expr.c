@@ -170,7 +170,7 @@ uint32_t eval(int p, int q) {
     int op = find_dominant_operator(p, q);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
-    printf("val1 = %u\nval2 = %u\n", val1, val2);
+    printf("op = %d val1 = %u val2 = %u\n", op, val1, val2);
 
     switch (tokens[op].type) {
       case ADD:
