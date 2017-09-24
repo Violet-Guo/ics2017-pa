@@ -237,6 +237,7 @@ int find_dominant_operator(int p, int q) {
       }
     }
   }
+  printf("op = %d, pos = %d\n",  op, pos);
   return pos;
 }
 
