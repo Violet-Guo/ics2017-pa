@@ -278,7 +278,7 @@ bool check_parentheses(int p, int q) {
 
 int find_dominant_operator(int p, int q) {
   int i = 0, j, cnt;
-  int op = 444, opp, pos = -1;
+  int op = 0, opp, pos = -1;
   for (i = p; i <= q; i++){
     if (tokens[i].type == NUM || tokens[i].type == REG || tokens[i].type == HEX)
       continue;
@@ -296,7 +296,7 @@ int find_dominant_operator(int p, int q) {
     }
     else {
       opp = priority(i);
-      if (opp < op) {
+      if (opp > op) {
         pos = i;
         op = opp;
       }
