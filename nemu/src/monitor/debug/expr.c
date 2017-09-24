@@ -81,7 +81,7 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
-//  printf("expression = %s\n", e);
+  printf("expression = %s\n", e);
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -161,7 +161,7 @@ uint32_t expr(char *e, bool *success) {
   }
   int i;
   for (i = 0; i < nr_token; i++) {
-//    printf("token%d = %s\n", i, tokens[i].str);
+    printf("token%d = %s\n", i, tokens[i].str);
   }
 
   /* TODO: Insert codes to evaluate the expression. */
