@@ -168,6 +168,16 @@ uint32_t eval(int p, int q) {
     if (tokens[p].type == NUM) {
       return atoi(tokens[p].str);
     }
+    else if (tokens[p].type == REG) {
+      if (strcmp(tokens[p].str, "$eax") == 0)  return cpu.eax;
+      else if (strcmp(tokens[p].str, "$ebx") == 0)  return cpu.ebx;
+      else if (strcmp(tokens[p].str, "$ecx") == 0)  return cpu.ecx;
+      else if (strcmp(tokens[p].str, "$edx") == 0)  return cpu.edx;
+      else if (strcmp(tokens[p].str, "$ebp") == 0)  return cpu.ebp;
+      else if (strcmp(tokens[p].str, "$esp") == 0)  return cpu.esp;
+      else if (strcmp(tokens[p].str, "$esi") == 0)  return cpu.esi;
+      else if (strcmp(tokens[p].str, "$edi") == 0)  return cpu.edi;
+    }
   }
   else if (check_parentheses(p, q)){
     return eval(p + 1, q - 1);
