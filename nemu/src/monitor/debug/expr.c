@@ -10,7 +10,8 @@
 #define BAD_EXP -1111
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET, REG, HEX
+  TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET, REG, HEX,
+    AND, OR, NEQ
 
   /* TODO: Add more token types */
 
@@ -38,7 +39,10 @@ static struct rule {
   {"\\$e[abc]x", REG},  // register
   {"\\$e[bs]p", REG},
   {"\\$e[sd]i", REG},
-  {"\\$eip", REG}
+  {"\\$eip", REG},
+  {"&&", AND},          // and
+  {"\\|\\|", OR},       // or
+  {"!=", NEQ}           // not equal
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -98,7 +102,6 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             break;
-
           case NUM:
           case REG:
           case HEX: 
@@ -113,6 +116,10 @@ static bool make_token(char *e) {
           case DIVIDE:
           case LBRACKET:
           case RBRACKET:
+          case AND:
+          case OR:
+          case TK_EQ:
+          case NEQ:
             tokens[nr_token].str[0] = substr_start[0];
             tokens[nr_token++].str[1] = '\0';
             break;
@@ -215,6 +222,14 @@ uint32_t eval(int p, int q) {
         return val1 * val2;
       case DIVIDE:
         return val1 / val2;
+      case AND:
+        return val1 && val2;
+      case OR:
+        return val1 || val2;
+      case TK_EQ:
+        return val1 == val2;
+      case NEQ:
+        return val1 != val2;
       default:
         assert(0);
     }
@@ -289,10 +304,11 @@ int find_dominant_operator(int p, int q) {
 }
 
 int priority(int i) {
-  if (tokens[i].type == ADD || tokens[i].type == MINUS) 
-    return 1;
-  else if (tokens[i].type == MULTIPLY || tokens[i].type == DIVIDE)
-    return 2;
+  if (tokens[i].type == ADD || tokens[i].type == MINUS) return 4;
+  else if (tokens[i].type == MULTIPLY || tokens[i].type == DIVIDE) return 3;
+  else if (tokens[i].type == OR) return 12;
+  else if (tokens[i].type == AND) return 11;
+  else if (tokens[i].type == NEQ || tokens[i].type == TK_EQ) return 7;
   return 0;
 }
 
