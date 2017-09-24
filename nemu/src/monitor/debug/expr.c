@@ -98,25 +98,10 @@ static bool make_token(char *e) {
             nr_token++;
             break;
           case ADD:
-            tokens[nr_token].str[0] = substr_start[0];
-            tokens[nr_token++].str[1] = '\0';
-            break;
           case MINUS:
-            tokens[nr_token].str[0] = substr_start[0];
-            tokens[nr_token++].str[1] = '\0';
-            break;
           case MULTIPLY:
-            tokens[nr_token].str[0] = substr_start[0];
-            tokens[nr_token++].str[1] = '\0';
-            break;
           case DIVIDE:
-            tokens[nr_token].str[0] = substr_start[0];
-            tokens[nr_token++].str[1] = '\0';
-            break;
           case LBRACKET:
-            tokens[nr_token].str[0] = substr_start[0];
-            tokens[nr_token++].str[1] = '\0';
-            break;
           case RBRACKET:
             tokens[nr_token].str[0] = substr_start[0];
             tokens[nr_token++].str[1] = '\0';
