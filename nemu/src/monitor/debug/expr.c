@@ -156,6 +156,7 @@ uint32_t expr(char *e, bool *success) {
 }
 
 uint32_t eval(int p, int q) {
+  printf("in the eval p = %d, q = %d\n", p, q);
   if (p > q){
     return BAD_EXP;
   }
