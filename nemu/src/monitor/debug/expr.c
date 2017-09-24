@@ -169,8 +169,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   }
   else {
-    printf("in the else, op = %s\n", tokens[1].str);
-    int op = tokens[1].type;
+    int op = 1;
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
 
