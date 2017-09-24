@@ -28,6 +28,7 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", ADD},         // plus
   {"==", TK_EQ},        // equal
+  {"0[xX][0-9a-fA-F]+", HEX},   // hex number
   {"[0-9]+", NUM},      // numbers
   {"\\-", MINUS},       // minus
   {"\\*", MULTIPLY},    // multiply
@@ -37,8 +38,7 @@ static struct rule {
   {"\\$e[abc]x", REG},  // register
   {"\\$e[bs]p", REG},
   {"\\$e[sd]i", REG},
-  {"\\$eip", REG},
-  {"0[xX][0-9a-fA-F]+", HEX}   // hex number
+  {"\\$eip", REG}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
