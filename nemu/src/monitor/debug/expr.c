@@ -169,7 +169,9 @@ uint32_t eval(int p, int q) {
       return atoi(tokens[p].str);
     }
     else if (tokens[p].type == REG) {
-      if (strcmp(tokens[p].str, "$eax") == 0)  return cpu.eax;
+      if (strcmp(tokens[p].str, "$eax") == 0){  
+        printf("%u\n", cpu.eax);
+        return cpu.eax;}
       else if (strcmp(tokens[p].str, "$ebx") == 0)  return cpu.ebx;
       else if (strcmp(tokens[p].str, "$ecx") == 0)  return cpu.ecx;
       else if (strcmp(tokens[p].str, "$edx") == 0)  return cpu.edx;
