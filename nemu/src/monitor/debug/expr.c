@@ -179,6 +179,10 @@ uint32_t eval(int p, int q) {
         return val1 + val2;
       case MINUS:
         return val1 - val2;
+      case MULTIPLY:
+        return val1 * val2;
+      case DIVIDE:
+        return val1 / val2;
     }
   }
   return 1;
