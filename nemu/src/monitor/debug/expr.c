@@ -169,7 +169,7 @@ uint32_t eval(int p, int q) {
     return eval(p + 1, q - 1);
   }
   else {
-    int op = 1;
+    int op = find_dominant_operator(p, q);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
     printf("val1 = %u\nval2 = %u\n", val1, val2);
@@ -208,11 +208,31 @@ bool check_parentheses(int p, int q) {
 }
 
 int find_dominant_operator(int p, int q) {
-  int i = 0;
+  int i = 0, j, cnt;
+  int op = 444, opp, pos = -1;
   for (i = p; i <= q; i++){
-
+    if (tokens[i].type == NUM)
+      continue;
+    else if (tokens[i].type == LBRACKET) {
+      cnt = 0;
+      for (j = i + 1; j <= q; j++) {
+        if (tokens[j].type == RBRACKET) {
+          i += cnt;
+          break;
+        }
+        else
+          cnt++;
+      }
+    }
+    else {
+      opp = priority(i);
+      if (opp < op) {
+        pos = i;
+        op = opp;
+      }
+    }
   }
-  return 1;
+  return pos;
 }
 
 int priority(int i) {
