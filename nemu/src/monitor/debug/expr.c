@@ -6,10 +6,11 @@
 #include <sys/types.h>
 #include <regex.h>
 #include <stdlib.h>
+#include <string.h>
 #define BAD_EXP -1111
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET, REG
+  TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET, REG, HEX
 
   /* TODO: Add more token types */
 
@@ -36,7 +37,8 @@ static struct rule {
   {"\\$e[abc]x", REG},  // register
   {"\\$e[bs]p", REG},
   {"\\$e[sd]i", REG},
-  {"\\$eip", REG}
+  {"\\$eip", REG},
+  {"0[xX][0-9a-fA-F]+", HEX}   // hex number
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -99,7 +101,8 @@ static bool make_token(char *e) {
 
           case NUM:
           case REG:
-            for (i = 0; i < substr_len; i++)
+          case HEX: 
+           for (i = 0; i < substr_len; i++)
               tokens[nr_token].str[i] = substr_start[i];
             tokens[nr_token].str[i] = '\0';
             nr_token++;
@@ -133,6 +136,7 @@ static bool make_token(char *e) {
 
 uint32_t expr(char *e, bool *success);
 uint32_t eval(int p, int q);
+uint32_t getnum(char str);
 bool judge_exp();
 bool check_parentheses(int p, int q);
 int find_dominant_operator(int p, int q);
@@ -179,6 +183,17 @@ uint32_t eval(int p, int q) {
       else if (strcmp(tokens[p].str, "$esp") == 0)  return cpu.esp;
       else if (strcmp(tokens[p].str, "$esi") == 0)  return cpu.esi;
       else if (strcmp(tokens[p].str, "$edi") == 0)  return cpu.edi;
+    }
+    else if (tokens[p].type == HEX) {
+      int cnt, i, len, sum = 0;
+      len = strlen(tokens[p].str);
+      cnt = 1;
+
+      for (i = len-1; i >= 0; i--) {
+        sum = sum + cnt * getnum(tokens[p].str[i]);
+        cnt *= 16;
+      }
+      return sum;
     }
   }
   else if (check_parentheses(p, q)){
@@ -278,5 +293,16 @@ int priority(int i) {
     return 1;
   else if (tokens[i].type == MULTIPLY || tokens[i].type == DIVIDE)
     return 2;
+  return 0;
+}
+
+uint32_t getnum(char str)
+{
+  if (str >= '0' && str <= '9') 
+    return str - '0';
+  else if (str >= 'a' && str <= 'f') 
+    return str - 'a' + 10;
+  else if (str >= 'A' && str <= 'F') 
+    return str - 'A' + 10;
   return 0;
 }
