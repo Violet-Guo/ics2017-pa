@@ -130,7 +130,7 @@ static bool make_token(char *e) {
           default: TODO();
         }
 
-        printf("token = %s\n", tokens[nr_token-1].str);
+//        printf("token = %s\n", tokens[nr_token-1].str);
 
         break;
       }
@@ -185,7 +185,7 @@ uint32_t eval(int p, int q) {
     }
     else if (tokens[p].type == REG) {
       if (strcmp(tokens[p].str, "$eax") == 0){  
-        printf("eax = %u\n", cpu.eax);
+//        printf("eax = %u\n", cpu.eax);
         return cpu.eax;}
       else if (strcmp(tokens[p].str, "$ebx") == 0)  return cpu.ebx;
       else if (strcmp(tokens[p].str, "$ecx") == 0)  return cpu.ecx;
@@ -295,7 +295,6 @@ int find_dominant_operator(int p, int q) {
       }
     }
     else {
-      printf("i = %d\n", i);
       opp = priority(i);
       if (opp < op) {
         pos = i;
