@@ -145,7 +145,7 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  if (judge_exp())
+  if (!judge_exp())
     *success = false;
   else
     return eval(0, nr_token - 1);
