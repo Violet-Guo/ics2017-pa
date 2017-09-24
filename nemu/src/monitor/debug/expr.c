@@ -230,6 +230,7 @@ int find_dominant_operator(int p, int q) {
       }
     }
     else {
+      printf("i = %d\n", i);
       opp = priority(i);
       if (opp < op) {
         pos = i;
