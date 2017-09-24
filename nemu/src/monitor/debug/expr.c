@@ -170,7 +170,7 @@ uint32_t eval(int p, int q) {
     }
     else if (tokens[p].type == REG) {
       if (strcmp(tokens[p].str, "$eax") == 0){  
-        printf("%u\n", cpu.eax);
+        printf("eax = %u\n", cpu.eax);
         return cpu.eax;}
       else if (strcmp(tokens[p].str, "$ebx") == 0)  return cpu.ebx;
       else if (strcmp(tokens[p].str, "$ecx") == 0)  return cpu.ecx;
