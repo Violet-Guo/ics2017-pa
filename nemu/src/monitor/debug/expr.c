@@ -145,12 +145,13 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  uint32_t result;
-  result = eval(0, nr_token - 1);
+  if (judge_exp())
+    *success = false;
+  else
+    return eval(0, nr_token - 1);
+
   //TODO();
-  
-  return result;
-  //return 0;
+  return 0;
 }
 
 uint32_t eval(int p, int q) {
@@ -190,6 +191,18 @@ uint32_t eval(int p, int q) {
 }
 
 bool judge_exp() {
+  int i, cnt;
+  
+  cnt = 0;
+  for (i = 0; i <= nr_token; i++) {
+    if (tokens[i].type == LBRACKET)
+      cnt++;
+    else if (tokens[i].type == RBRACKET)
+      cnt--;
+
+    if (cnt < 0)
+      return false;
+  }
 
   return true;
 }
