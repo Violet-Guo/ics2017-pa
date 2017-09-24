@@ -261,7 +261,7 @@ int find_dominant_operator(int p, int q) {
   int i = 0, j, cnt;
   int op = 444, opp, pos = -1;
   for (i = p; i <= q; i++){
-    if (tokens[i].type == NUM || tokens[i].type == REG)
+    if (tokens[i].type == NUM || tokens[i].type == REG || tokens[i].type == HEX)
       continue;
     else if (tokens[i].type == LBRACKET) {
       cnt = 0;
