@@ -182,6 +182,8 @@ uint32_t eval(int p, int q) {
         return val1 * val2;
       case DIVIDE:
         return val1 / val2;
+      default:
+        assert(0);
     }
   }
   return 1;
@@ -241,5 +243,7 @@ int find_dominant_operator(int p, int q) {
 int priority(int i) {
   if (tokens[i].type == ADD || tokens[i].type == MINUS) 
     return 1;
+  else if (tokens[i].type == MULTIPLY || tokens[i].type == DIVIDE)
+    return 2;
   return 0;
 }
