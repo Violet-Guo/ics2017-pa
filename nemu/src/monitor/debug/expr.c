@@ -222,6 +222,7 @@ int find_dominant_operator(int p, int q) {
       cnt = 0;
       for (j = i + 1; j <= q; j++) {
         if (tokens[j].type == RBRACKET) {
+          cnt++;
           i += cnt;
           break;
         }
