@@ -151,7 +151,7 @@ static int cmd_p(char *args) {
   init_regex();
 
   bool success = true;
-  printf("args = %s\n", args);
+  //printf("args = %s\n", args);
   int result = expr(args, &success);
 
   if (success) {
