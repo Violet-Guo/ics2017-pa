@@ -98,6 +98,7 @@ static bool make_token(char *e) {
             break;
 
           case NUM:
+          case REG:
             for (i = 0; i < substr_len; i++)
               tokens[nr_token].str[i] = substr_start[i];
             tokens[nr_token].str[i] = '\0';
