@@ -81,7 +81,7 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
-  printf("expression = %s\n", e);
+//  printf("expression = %s\n", e);
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -89,8 +89,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+//        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+//            i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -161,7 +161,7 @@ uint32_t expr(char *e, bool *success) {
   }
   int i;
   for (i = 0; i < nr_token; i++) {
-    printf("token%d = %s\n", i, tokens[i].str);
+//    printf("token%d = %s\n", i, tokens[i].str);
   }
 
   /* TODO: Insert codes to evaluate the expression. */
@@ -175,7 +175,7 @@ uint32_t expr(char *e, bool *success) {
 }
 
 uint32_t eval(int p, int q) {
-  printf("in the eval p = %d, q = %d\n", p, q);
+//  printf("in the eval p = %d, q = %d\n", p, q);
   if (p > q){
     return BAD_EXP;
   }
@@ -212,10 +212,10 @@ uint32_t eval(int p, int q) {
   }
   else {
     int op = find_dominant_operator(p, q);
-    printf("op = %d\n", op);
+//    printf("op = %d\n", op);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
-    printf("op = %d val1 = %u val2 = %u\n", op, val1, val2);
+//    printf("op = %d val1 = %u val2 = %u\n", op, val1, val2);
 
     switch (tokens[op].type) {
       case ADD:
@@ -302,7 +302,7 @@ int find_dominant_operator(int p, int q) {
       }
     }
   }
-  printf("op = %d, pos = %d\n",  op, pos);
+//  printf("op = %d, pos = %d\n",  op, pos);
   return pos;
 }
 
