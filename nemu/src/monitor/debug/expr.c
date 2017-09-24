@@ -139,8 +139,6 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  printf("expr\n");
-  printf("nr_token = %d\n", nr_token);
   int i;
   for (i = 0; i < nr_token; i++) {
     printf("token%d = %s\n", i, tokens[i].str);
@@ -174,7 +172,7 @@ uint32_t eval(int p, int q) {
     uint32_t val2 = eval(op + 1, q);
     printf("val1 = %u\nval2 = %u\n", val1, val2);
 
-    switch (ADD) {
+    switch (tokens[op].type) {
       case ADD:
         return val1 + val2;
       case MINUS:
