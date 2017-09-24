@@ -9,7 +9,7 @@
 #define BAD_EXP -1111
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET
+  TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET, REG
 
   /* TODO: Add more token types */
 
@@ -31,8 +31,12 @@ static struct rule {
   {"\\-", MINUS},       // minus
   {"\\*", MULTIPLY},    // multiply
   {"\\/", DIVIDE},      // divide
-  {"\\(", LBRACKET},      // left bracket
-  {"\\)", RBRACKET}       // right bracket
+  {"\\(", LBRACKET},    // left bracket
+  {"\\)", RBRACKET},    // right bracket
+  {"\\$e[abc]x", REG},  // register
+  {"\\$e[bs]p", REG},
+  {"\\$e[sd]i", REG},
+  {"\\$eip", REG}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
