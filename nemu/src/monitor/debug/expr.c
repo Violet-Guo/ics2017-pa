@@ -5,6 +5,8 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <stdlib.h>
+#define BAD_EXP -1111
 
 enum {
   TK_NOTYPE = 256, TK_EQ, NUM, ADD, MINUS, MULTIPLY, DIVIDE, LBRACKET, RBRACKET
@@ -124,6 +126,14 @@ static bool make_token(char *e) {
   return true;
 }
 
+uint32_t expr(char *e, bool *success);
+uint32_t eval(int p, int q);
+bool judge_exp();
+bool check_parentheses(int p, int q);
+int find_dominant_operator(int p, int q);
+int priority(int i);
+
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -137,7 +147,74 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  uint32_t result;
+  result = eval(0, nr_token - 1);
+  //TODO();
+  
+  return result;
+  //return 0;
+}
 
+uint32_t eval(int p, int q) {
+  if (p > q){
+    return BAD_EXP;
+  }
+  else if (p == q){
+    if (tokens[p].type == NUM) {
+      return atoi(tokens[p].str);
+    }
+  }
+  else if (check_parentheses(p, q)){
+    return eval(p + 1, q - 1);
+  }
+  else {
+    int op = tokens[1].type;
+    uint32_t val1 = eval(p, op - 1);
+    uint32_t val2 = eval(op + 1, q);
+
+    switch (op) {
+      case ADD:
+        return val1 + val2;
+      case MINUS:
+        return val1 - val2;
+    }
+  }
+  return 1;
+}
+
+bool judge_exp() {
+
+  return true;
+}
+
+bool check_parentheses(int p, int q) {
+  int i, bra = 0;
+
+  for (i = p; i <= q; i++) {
+    if (tokens[i].type == LBRACKET) {
+      bra++;
+    }
+    if (tokens[i].type == RBRACKET) {
+      bra--;
+    }
+    if(bra == 0 && i < q) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+int find_dominant_operator(int p, int q) {
+  int i = 0;
+  for (i = p; i <= q; i++){
+
+  }
+  return 1;
+}
+
+int priority(int i) {
+  if (tokens[i].type == ADD || tokens[i].type == MINUS) 
+    return 1;
   return 0;
 }
