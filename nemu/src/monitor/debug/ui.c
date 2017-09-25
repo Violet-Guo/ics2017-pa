@@ -10,6 +10,7 @@
 int trans(char *e);
 void cpu_exec(uint64_t);
 void init_regex();
+void display_wp();
 uint32_t expr(char *e, bool *success);
 uint32_t vaddr_read(vaddr_t addr, int len);
 
@@ -117,7 +118,7 @@ static int cmd_info(char *args) {
       printf("eip:  0x%x    %d\n", cpu.eip, cpu.eip);
     }
     else if (strcmp(args, "w") == 0) {
-
+      display_wp();
     }
     else {
       printf("The info command need a parameter 'r' or 'w'\n");
