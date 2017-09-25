@@ -104,7 +104,7 @@ void delete_wp(int no) {
 
 void display_wp() {
   if (head == NULL) {
-    printf("There is no watchpoint!");
+    printf("There is no watchpoint!\n");
     return ;
   }
 
