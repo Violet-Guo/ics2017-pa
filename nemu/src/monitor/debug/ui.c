@@ -148,20 +148,23 @@ static int cmd_x(char *args) {
 }
 
 static int cmd_p(char *args) {
-
-  init_regex();
-
-  bool success = true;
-  //printf("args = %s\n", args);
-  int result = expr(args, &success);
-
-  if (success) {
-    printf("result = %d\n", result);
+  if (args == NULL) {
+    printf("Inpute invalid command! Please input the expression.\n");
   }
   else {
-    printf("Invalid expression!\n");
-  }
+    init_regex();
 
+    bool success = true;
+    //printf("args = %s\n", args);
+    int result = expr(args, &success);
+
+    if (success) {
+      printf("result = %d\n", result);
+    }
+    else {
+      printf("Invalid expression!\n");
+    }
+  }
   return 0;
 }
 
