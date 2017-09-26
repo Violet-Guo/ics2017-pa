@@ -109,10 +109,10 @@ void display_wp() {
   }
 
   WP *wp;
-  printf("NO           expression             value\n");
+  printf("NO      expression      value\n");
   wp = head;
   while (wp != NULL) {
-    printf("%-10d   %-13s   %-16u\n", wp->NO, wp->exp, wp->value);
+    printf("%-10d   %-8s   %-16u\n", wp->NO, wp->exp, wp->value);
     wp = wp->next;
   }
 }
