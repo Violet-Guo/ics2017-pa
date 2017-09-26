@@ -112,7 +112,7 @@ void display_wp() {
   printf("NO      expression      value\n");
   wp = head;
   while (wp != NULL) {
-    printf("%-8d   %-8s   %-16u\n", wp->NO, wp->exp, wp->value);
+    printf("%-5d   %-8s   %-16u\n", wp->NO, wp->exp, wp->value);
     wp = wp->next;
   }
 }
