@@ -11,6 +11,8 @@ int trans(char *e);
 void cpu_exec(uint64_t);
 void init_regex();
 void display_wp();
+void insert_wp(char *args);
+void delete_wp(int no);
 uint32_t expr(char *e, bool *success);
 uint32_t vaddr_read(vaddr_t addr, int len);
 
@@ -46,6 +48,8 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
+static int cmd_w(char *args);
+static int cmd_d(char *args);
 
 static struct {
   char *name;
@@ -59,6 +63,8 @@ static struct {
   { "info", "Display the register status and the watchpoint information", cmd_info},
   { "x", "Caculate the value of expression and display the content of the address", cmd_x},
   { "p","Calculate an expression", cmd_p},
+  { "w", "Create a watchpoint", cmd_w},
+  { "d", "Delete a watchpoint", cmd_d},
   /* TODO: Add more commands */
 };
 
@@ -149,7 +155,7 @@ static int cmd_x(char *args) {
 
 static int cmd_p(char *args) {
   if (args == NULL) {
-    printf("Inpute invalid command! Please input the expression.\n");
+    printf("Input invalid command! Please input the expression.\n");
   }
   else {
     init_regex();
@@ -168,6 +174,26 @@ static int cmd_p(char *args) {
   return 0;
 }
 
+static int cmd_w(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command! Please input the expression.\n");
+  }
+  else {
+    insert_wp(args);
+  }
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command! Please input the NO.\n");
+  }
+  else {
+    int no = atoi(args);
+    delete_wp(no);
+  }
+  return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
