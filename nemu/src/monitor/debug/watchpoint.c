@@ -62,9 +62,13 @@ void insert_wp(char *args) {
     head = wp;
   }
   else {
-    wp->NO = head->NO + 1;
-    wp->next = head;
-    head = wp;
+    WP *wwp;
+    wwp = head;
+    while (wwp->next != NULL) {
+      wwp = wwp->next;
+    }
+    wp->NO = wwp->NO + 1;
+    wwp->next = wp;
   }
 
   return ;
