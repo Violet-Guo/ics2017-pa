@@ -32,14 +32,6 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-/*    int no;
-    bool flag = haschanged(&no);
-    if (flag) {
-      printf("NO.%d watchpoint has been changed\n", no);
-      nemu_state = NEMU_STOP;
-    }
-*/
-
   int *no = haschanged();
   if (*no != -1) {
     int i;

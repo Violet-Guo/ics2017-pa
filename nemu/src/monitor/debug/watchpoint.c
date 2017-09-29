@@ -121,25 +121,6 @@ void display_wp() {
   }
 }
 
-/*
-bool haschanged(int *no) {
-  WP *wp = head;
-  uint32_t val;
-  bool flag = true;
-
-  while (wp != NULL) {
-    val = expr(wp->exp, &flag);
-    if (val != wp->value) {
-      wp->value = val;
-      *no = wp->value;
-      return true;
-    }
-    wp = wp->next;
-  }
-
-  return false;
-}*/
-
 int * haschanged() {
   WP *wp = head;
   bool flag = true;
