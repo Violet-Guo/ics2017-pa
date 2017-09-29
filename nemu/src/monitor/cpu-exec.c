@@ -40,8 +40,7 @@ void cpu_exec(uint64_t n) {
     }
 */
 
-  int *no;
-  no = haschanged();
+  int *no = haschanged();
   if (*no != -1) {
     int i;
     for (i = 0; *(no + i) != -1; i++) {
