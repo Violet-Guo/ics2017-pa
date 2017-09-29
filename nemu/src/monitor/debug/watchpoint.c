@@ -121,6 +121,7 @@ void display_wp() {
   }
 }
 
+/*
 bool haschanged(int *no) {
   WP *wp = head;
   uint32_t val;
@@ -137,4 +138,24 @@ bool haschanged(int *no) {
   }
 
   return false;
+}*/
+
+int * haschange() {
+  WP *wp = head;
+  bool flag = true;
+  uint32_t val;
+  static int no[NR_WP];
+  int i = 0;
+
+  while (wp != NULL) {
+    val = expr(wp->exp, &flag);
+    if (val != wp->value) {
+      wp->value = val;
+      no[i++] = wp->NO;
+    }
+      wp = wp->next;
+  }
+  no[i] = -1;
+
+  return no;
 }
