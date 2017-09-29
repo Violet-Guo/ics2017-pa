@@ -11,7 +11,7 @@
 int nemu_state = NEMU_STOP;
 
 void exec_wrapper(bool);
-bool haschanged(int *no);
+int * haschanged();
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
@@ -32,13 +32,24 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-    int no;
+/*    int no;
     bool flag = haschanged(&no);
     if (flag) {
       printf("NO.%d watchpoint has been changed\n", no);
       nemu_state = NEMU_STOP;
     }
+*/
 
+  int *no;
+  no = haschanged();
+  if (*no != -1) {
+    int i;
+    for (i = 0; *(no + i) != -1; i++) {
+      printf("NO.%d ", *(no + i));
+    }
+    printf("watchpoint has been changed\n");
+    nemu_state = NEMU_STOP;
+  }
 #endif
 
 #ifdef HAS_IOE
