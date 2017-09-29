@@ -194,6 +194,7 @@ uint32_t eval(int p, int q) {
       else if (strcmp(tokens[p].str, "$esp") == 0)  return cpu.esp;
       else if (strcmp(tokens[p].str, "$esi") == 0)  return cpu.esi;
       else if (strcmp(tokens[p].str, "$edi") == 0)  return cpu.edi;
+      else if (strcmp(tokens[p].str, "$eip") == 0)  return cpu.eip;
     }
     else if (tokens[p].type == HEX) {
       int cnt, i, len, sum = 0;
