@@ -100,6 +100,7 @@ void delete_wp(int no) {
       del_wp = wp->next;
       wp->next = del_wp->next;
       free_wp(del_wp);
+      printf("NO.%d  watchpoint has been deleted!\n", no);
     }
   }
 
