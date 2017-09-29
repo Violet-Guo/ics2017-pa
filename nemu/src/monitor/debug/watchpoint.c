@@ -140,7 +140,7 @@ bool haschanged(int *no) {
   return false;
 }*/
 
-int * haschange() {
+int * haschanged() {
   WP *wp = head;
   bool flag = true;
   uint32_t val;
