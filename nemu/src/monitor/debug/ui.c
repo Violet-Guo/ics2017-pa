@@ -7,9 +7,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-void cpu_exec(uint64_t);
-uint32_t vaddr_read(vaddr_t addr, int len);
 int trans(char *e);
+void cpu_exec(uint64_t);
+void init_regex();
+void display_wp();
+void insert_wp(char *args);
+void delete_wp(int no);
+uint32_t expr(char *e, bool *success);
+uint32_t vaddr_read(vaddr_t addr, int len);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -42,7 +47,9 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
-
+static int cmd_p(char *args);
+static int cmd_w(char *args);
+static int cmd_d(char *args);
 
 static struct {
   char *name;
@@ -55,6 +62,9 @@ static struct {
   { "si", "Let the program execute n steps", cmd_si },
   { "info", "Display the register status and the watchpoint information", cmd_info},
   { "x", "Caculate the value of expression and display the content of the address", cmd_x},
+  { "p","Calculate an expression", cmd_p},
+  { "w", "Create a watchpoint", cmd_w},
+  { "d", "Delete a watchpoint", cmd_d},
   /* TODO: Add more commands */
 };
 
@@ -104,17 +114,17 @@ static int cmd_info(char *args) {
   }
   else {
     if (strcmp(args, "r") == 0) {
-      printf("eax:  0x%x    %d\n", cpu.eax, cpu.eax);
-      printf("edx:  0x%x    %d\n", cpu.edx, cpu.edx);
-      printf("ecx:  0x%x    %d\n", cpu.ecx, cpu.ecx);
-      printf("ebx:  0x%x    %d\n", cpu.ebx, cpu.ebx);
-      printf("ebp:  0x%x    %d\n", cpu.ebp, cpu.ebp);
-      printf("esi:  0x%x    %d\n", cpu.esi, cpu.esi);
-      printf("esp:  0x%x    %d\n", cpu.esp, cpu.esp);
-      printf("eip:  0x%x    %d\n", cpu.eip, cpu.eip);
+      printf("eax:  0x%-10x    %-10d\n", cpu.eax, cpu.eax);
+      printf("edx:  0x%-10x    %-10d\n", cpu.edx, cpu.edx);
+      printf("ecx:  0x%-10x    %-10d\n", cpu.ecx, cpu.ecx);
+      printf("ebx:  0x%-10x    %-10d\n", cpu.ebx, cpu.ebx);
+      printf("ebp:  0x%-10x    %-10d\n", cpu.ebp, cpu.ebp);
+      printf("esi:  0x%-10x    %-10d\n", cpu.esi, cpu.esi);
+      printf("esp:  0x%-10x    %-10d\n", cpu.esp, cpu.esp);
+      printf("eip:  0x%-10x    %-10d\n", cpu.eip, cpu.eip);
     }
     else if (strcmp(args, "w") == 0) {
-
+      display_wp();
     }
     else {
       printf("The info command need a parameter 'r' or 'w'\n");
@@ -143,6 +153,47 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+static int cmd_p(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command! Please input the expression.\n");
+  }
+  else {
+    init_regex();
+
+    bool success = true;
+    //printf("args = %s\n", args);
+    int result = expr(args, &success);
+
+    if (success) {
+      printf("result = %d\n", result);
+    }
+    else {
+      printf("Invalid expression!\n");
+    }
+  }
+  return 0;
+}
+
+static int cmd_w(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command! Please input the expression.\n");
+  }
+  else {
+    insert_wp(args);
+  }
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  if (args == NULL) {
+    printf("Input invalid command! Please input the NO.\n");
+  }
+  else {
+    int no = atoi(args);
+    delete_wp(no);
+  }
+  return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
