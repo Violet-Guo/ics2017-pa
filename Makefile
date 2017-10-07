@@ -13,4 +13,8 @@ submit: clean
 	git gc
 	cd .. && tar cj $(shell basename `pwd`) > $(STU_ID).tar.bz2
 
+make count:
+	find /home/vagrant/ics2017/nemu -name *.c -or -name *.h -or -name *.cpp | xargs cat | grep -v ^$$ | wc -l	
+
+
 .PHONY: default clean submit
