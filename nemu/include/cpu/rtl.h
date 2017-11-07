@@ -113,10 +113,10 @@ static inline void rtl_sr(int r, int width, const rtlreg_t* src1) {
 
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    TODO(); \
-  } \
+  	cpu.eflags.f = *src; \
+	} \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
-    TODO(); \
+    *dest = cpu.eflags.f; \
   }
 
 make_rtl_setget_eflags(CF)
@@ -142,13 +142,15 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline void rtl_push(const rtlreg_t* src1) {
   // esp <- esp - 4
   // M[esp] <- src1
-  TODO();
+	cpu.esp -= 4;
+	vaddr_write(cpu.esp, 4, *src1);
 }
 
 static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
-  TODO();
+	*dest = vaddr_read(cpu.esp, 4);
+	cpu.esp += 4;
 }
 
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
@@ -173,12 +175,26 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  TODO();
+	int zf = 0;
+	if (width == 2) {
+		zf = (*result & 0x0000ffff) | 0;
+	}
+	else if (width == 4) {
+		zf = *result | 0;
+	}
+  cpu.eflags.ZF = (zf == 0) ? 1 : 0;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  TODO();
+	int sf = 0;
+  if (width == 2) {
+    sf = (*result >> 15) & 1;
+  }
+  else if (width == 4) {
+    sf = (*result >> 31) & 1;
+  }
+  cpu.eflags.SF = sf;
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
