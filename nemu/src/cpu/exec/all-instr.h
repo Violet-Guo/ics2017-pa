@@ -14,6 +14,8 @@ make_EHelper(and);
 
 make_EHelper(lea);
 
+make_EHelper(jmp);
+
 make_EHelper(operand_size);
 
 make_EHelper(inv);
