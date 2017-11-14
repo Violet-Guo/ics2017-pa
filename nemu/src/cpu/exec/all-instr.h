@@ -1,6 +1,8 @@
 #include "cpu/exec.h"
 
 make_EHelper(mov);
+make_EHelper(movzx);
+
 make_EHelper(call);
 make_EHelper(ret);
 
