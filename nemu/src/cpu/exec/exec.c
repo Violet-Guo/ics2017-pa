@@ -76,7 +76,7 @@ opcode_entry opcode_table [512] = {
   /* 0x04 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x08 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x0c */	EMPTY, EMPTY, EMPTY, EX(2byte_esc),
-  /* 0x10 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x10 */	EMPTY, EMPTY, IDEX(E2G, adc), EMPTY,
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
