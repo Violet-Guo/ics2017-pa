@@ -31,11 +31,8 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-	printf("in the reti\n");
 	rtl_pop(&decoding.jmp_eip);
-	printf("after pop\n");
 	decoding.is_jmp = 1; 
-	printf("%x\n", decoding.jmp_eip);
 	print_asm("ret");
 }
 
