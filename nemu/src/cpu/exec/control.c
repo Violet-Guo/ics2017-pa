@@ -31,6 +31,7 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
+	printf("in the ret");
 	rtl_pop(&t0);
 	decoding.jmp_eip = t0 + 5;
 	decoding.is_jmp = 1; 
