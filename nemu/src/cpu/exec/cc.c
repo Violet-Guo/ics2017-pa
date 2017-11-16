@@ -28,6 +28,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     case CC_E: 
 			printf("in the e i\n");
 			printf("%x\n", subcode & 0xe); 
+			printf("%d\n", cpu.eflags.ZF);
 			*dest = cpu.eflags.ZF;
 		  break;
     case CC_NE: 
