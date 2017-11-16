@@ -14,6 +14,7 @@ make_EHelper(jcc) {
   printf("id_src->val = %x\n", id_src->val);
 	printf("eflags.zf = %d\n", cpu.eflags.ZF);
 	rtl_setcc(&t2, subcode);
+	printf("t2 = %d\n", t2);
   decoding.is_jmp = t2;
 	printf("eip = %x\n", decoding.jmp_eip);
   print_asm("j%s %x", get_cc_name(subcode), decoding.jmp_eip);
