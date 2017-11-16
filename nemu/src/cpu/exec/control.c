@@ -12,6 +12,7 @@ make_EHelper(jcc) {
   uint8_t subcode = decoding.opcode & 0xf;
 	printf("opcode = %x\n", decoding.opcode); 
   printf("id_src->val = %x\n", id_src->val);
+	printf("eflags.zf = %d\n", cpu.eflags.ZF);
 	rtl_setcc(&t2, subcode);
   decoding.is_jmp = t2;
 	printf("eip = %x\n", decoding.jmp_eip);
