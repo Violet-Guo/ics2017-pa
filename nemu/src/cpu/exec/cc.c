@@ -30,7 +30,8 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 			printf("%x\n", subcode & 0xe); 
 			printf("%d\n", cpu.eflags.ZF);
 			*dest = cpu.eflags.ZF;
-		  break;
+		  printf("dest = %d\n", *dest);
+			break;
     case CC_NE: 
 			*dest = !cpu.eflags.ZF;
 		  break;
