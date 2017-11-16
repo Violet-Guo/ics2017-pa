@@ -33,6 +33,11 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 			*dest = !cpu.eflags.ZF;
 		  break;
 		case CC_BE:
+			*dest = ((cpu.eflags.CF) || (cpu.eflags.ZF));
+			break;
+		case CC_NBE:
+			*dest = ((!cpu.eflags.CF) && (!cpu.eflags.ZF));
+			break;
     case CC_S:
     case CC_L:
     case CC_LE: 
