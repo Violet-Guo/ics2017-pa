@@ -13,6 +13,7 @@ make_EHelper(sub);
 make_EHelper(add);
 make_EHelper(adc);
 make_EHelper(inc);
+make_EHelper(dec);
 
 make_EHelper(xor);
 make_EHelper(and);
