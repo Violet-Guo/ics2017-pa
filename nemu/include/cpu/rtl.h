@@ -126,7 +126,7 @@ make_rtl_setget_eflags(SF)
 
 static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
   // dest <- src1
-  TODO();
+	*dest = *src1;
 }
 
 static inline void rtl_not(rtlreg_t* dest) {
