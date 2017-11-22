@@ -127,7 +127,7 @@ void init_qemu_reg() {
 }
 
 void difftest_step(uint32_t eip) {
-  union gdb_regs r, qemus;
+  union gdb_regs r, mine;
   bool diff = false;
 
   if (is_skip_nemu) {
@@ -146,23 +146,23 @@ void difftest_step(uint32_t eip) {
 
   gdb_si();
   gdb_getregs(&r);
-  regcpy_from_nemu(qemus);
+  regcpy_from_nemu(mine);
   
 	// TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  if(r.eax != qemus.eax || r.ecx != qemus.ecx || r.edx != qemus.edx ||
-		 r.ebx != qemus.ebx || r.esp != qemus.esp || r.ebp != qemus.ebp ||
-		 r.esi != qemus.esi || r.edi != qemus.edi || r.eip != qemus.eip) {
+  if(r.eax != mine.eax || r.ecx != mine.ecx || r.edx != mine.edx ||
+		 r.ebx != mine.ebx || r.esp != mine.esp || r.ebp != mine.ebp ||
+		 r.esi != mine.esi || r.edi != mine.edi || r.eip != mine.eip) {
     diff = true;
-    printf("nemu eax:0x%08x, qemus eax:0x%08x @eip:0x%08x\n", r.eax, qemus.eax, qemus.eip);
-    printf("nemu ecx:0x%08x, qemus ecx:0x%08x @eip:0x%08x\n", r.ecx, qemus.ecx, qemus.eip);
-    printf("nemu edx:0x%08x, qemus edx:0x%08x @eip:0x%08x\n", r.edx, qemus.edx, qemus.eip);
-    printf("nemu ebx:0x%08x, qemus ebx:0x%08x @eip:0x%08x\n", r.ebx, qemus.ebx, qemus.eip);
-    printf("nemu esp:0x%08x, qemus esp:0x%08x @eip:0x%08x\n", r.esp, qemus.esp, qemus.eip);
-    printf("nemu ebp:0x%08x, qemus ebp:0x%08x @eip:0x%08x\n", r.ebp, qemus.ebp, qemus.eip);
-    printf("nemu esi:0x%08x, qemus esi:0x%08x @eip:0x%08x\n", r.esi, qemus.esi, qemus.eip);
-    printf("nemu edi:0x%08x, qemus edi:0x%08x @eip:0x%08x\n", r.edi, qemus.edi, qemus.eip);
-    printf("nemu eip:0x%08x, qemus eip:0x%08x @eip:0x%08x\n", r.eip, qemus.eip, qemus.eip);
+    printf("qemus eax:0x%08x, mine eax:0x%08x @eip:0x%08x\n", r.eax, mine.eax, mine.eip);
+    printf("qemus ecx:0x%08x, mine ecx:0x%08x @eip:0x%08x\n", r.ecx, mine.ecx, mine.eip);
+    printf("qemus edx:0x%08x, mine edx:0x%08x @eip:0x%08x\n", r.edx, mine.edx, mine.eip);
+    printf("qemus ebx:0x%08x, mine ebx:0x%08x @eip:0x%08x\n", r.ebx, mine.ebx, mine.eip);
+    printf("qemus esp:0x%08x, mine esp:0x%08x @eip:0x%08x\n", r.esp, mine.esp, mine.eip);
+    printf("qemus ebp:0x%08x, mine ebp:0x%08x @eip:0x%08x\n", r.ebp, mine.ebp, mine.eip);
+    printf("qemus esi:0x%08x, mine esi:0x%08x @eip:0x%08x\n", r.esi, mine.esi, mine.eip);
+    printf("qemus edi:0x%08x, mine edi:0x%08x @eip:0x%08x\n", r.edi, mine.edi, mine.eip);
+    printf("qemus eip:0x%08x, mine eip:0x%08x @eip:0x%08x\n", r.eip, mine.eip, mine.eip);
   } 
 
   if (diff) {
