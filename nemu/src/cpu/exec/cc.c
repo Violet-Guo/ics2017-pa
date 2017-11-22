@@ -46,6 +46,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 		case CC_NL: //13 d
 			*dest = (cpu.eflags.SF != cpu.eflags.OF);
     case CC_LE: //14 e
+			printf("i am here\n");
 			*dest = ((cpu.eflags.ZF) || (cpu.eflags.SF != cpu.eflags.OF));
 			break;
 		case CC_NLE://14 f
