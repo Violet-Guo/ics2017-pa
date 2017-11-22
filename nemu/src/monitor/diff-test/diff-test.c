@@ -150,40 +150,18 @@ void difftest_step(uint32_t eip) {
   
 	// TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  if(r.eax != qemus.eax) {
+  if(r.eax != qemus.eax || r.ecx != qemus.ecx || r.edx != qemus.edx ||
+		 r.ebx != qemus.ebx || r.esp != qemus.esp || r.ebp != qemus.ebp ||
+		 r.esi != qemus.esi || r.edi != qemus.edi || r.eip != qemus.eip) {
     diff = true;
     printf("qemu eax:0x%08x, qemus eax:0x%08x @eip:0x%08x\n", r.eax, qemus.eax, qemus.eip);
-  }  
-  if(r.ecx != qemus.ecx) {
-    diff = true;
     printf("qemu ecx:0x%08x, qemus ecx:0x%08x @eip:0x%08x\n", r.ecx, qemus.ecx, qemus.eip);
-  }   
-  if(r.edx != qemus.edx) {
-    diff = true;
     printf("qemu edx:0x%08x, qemus edx:0x%08x @eip:0x%08x\n", r.edx, qemus.edx, qemus.eip);
-  } 
-  if(r.ebx != qemus.ebx) {
-    diff = true;
     printf("qemu ebx:0x%08x, qemus ebx:0x%08x @eip:0x%08x\n", r.ebx, qemus.ebx, qemus.eip);
-  }
-  if(r.esp != qemus.esp) {
-    diff = true;
     printf("qemu esp:0x%08x, qemus esp:0x%08x @eip:0x%08x\n", r.esp, qemus.esp, qemus.eip);
-  } 
-  if(r.ebp != qemus.ebp) {
-    diff = true;
     printf("qemu ebp:0x%08x, qemus ebp:0x%08x @eip:0x%08x\n", r.ebp, qemus.ebp, qemus.eip);
-  } 
-  if(r.esi != qemus.esi) {
-    diff = true;
     printf("qemu esi:0x%08x, qemus esi:0x%08x @eip:0x%08x\n", r.esi, qemus.esi, qemus.eip);
-  }  
-  if(r.edi != qemus.edi) {
-    diff = true;
     printf("qemu edi:0x%08x, qemus edi:0x%08x @eip:0x%08x\n", r.edi, qemus.edi, qemus.eip);
-  } 
-  if(r.eip != qemus.eip) {
-    diff = true;
     printf("qemu eip:0x%08x, qemus eip:0x%08x @eip:0x%08x\n", r.eip, qemus.eip, qemus.eip);
   } 
 
