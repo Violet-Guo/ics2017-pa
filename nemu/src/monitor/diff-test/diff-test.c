@@ -154,15 +154,15 @@ void difftest_step(uint32_t eip) {
 		 r.ebx != qemus.ebx || r.esp != qemus.esp || r.ebp != qemus.ebp ||
 		 r.esi != qemus.esi || r.edi != qemus.edi || r.eip != qemus.eip) {
     diff = true;
-    printf("qemu eax:0x%08x, qemus eax:0x%08x @eip:0x%08x\n", r.eax, qemus.eax, qemus.eip);
-    printf("qemu ecx:0x%08x, qemus ecx:0x%08x @eip:0x%08x\n", r.ecx, qemus.ecx, qemus.eip);
-    printf("qemu edx:0x%08x, qemus edx:0x%08x @eip:0x%08x\n", r.edx, qemus.edx, qemus.eip);
-    printf("qemu ebx:0x%08x, qemus ebx:0x%08x @eip:0x%08x\n", r.ebx, qemus.ebx, qemus.eip);
-    printf("qemu esp:0x%08x, qemus esp:0x%08x @eip:0x%08x\n", r.esp, qemus.esp, qemus.eip);
-    printf("qemu ebp:0x%08x, qemus ebp:0x%08x @eip:0x%08x\n", r.ebp, qemus.ebp, qemus.eip);
-    printf("qemu esi:0x%08x, qemus esi:0x%08x @eip:0x%08x\n", r.esi, qemus.esi, qemus.eip);
-    printf("qemu edi:0x%08x, qemus edi:0x%08x @eip:0x%08x\n", r.edi, qemus.edi, qemus.eip);
-    printf("qemu eip:0x%08x, qemus eip:0x%08x @eip:0x%08x\n", r.eip, qemus.eip, qemus.eip);
+    printf("nemu eax:0x%08x, qemus eax:0x%08x @eip:0x%08x\n", r.eax, qemus.eax, qemus.eip);
+    printf("nemu ecx:0x%08x, qemus ecx:0x%08x @eip:0x%08x\n", r.ecx, qemus.ecx, qemus.eip);
+    printf("nemu edx:0x%08x, qemus edx:0x%08x @eip:0x%08x\n", r.edx, qemus.edx, qemus.eip);
+    printf("nemu ebx:0x%08x, qemus ebx:0x%08x @eip:0x%08x\n", r.ebx, qemus.ebx, qemus.eip);
+    printf("nemu esp:0x%08x, qemus esp:0x%08x @eip:0x%08x\n", r.esp, qemus.esp, qemus.eip);
+    printf("nemu ebp:0x%08x, qemus ebp:0x%08x @eip:0x%08x\n", r.ebp, qemus.ebp, qemus.eip);
+    printf("nemu esi:0x%08x, qemus esi:0x%08x @eip:0x%08x\n", r.esi, qemus.esi, qemus.eip);
+    printf("nemu edi:0x%08x, qemus edi:0x%08x @eip:0x%08x\n", r.edi, qemus.edi, qemus.eip);
+    printf("nemu eip:0x%08x, qemus eip:0x%08x @eip:0x%08x\n", r.eip, qemus.eip, qemus.eip);
   } 
 
   if (diff) {
