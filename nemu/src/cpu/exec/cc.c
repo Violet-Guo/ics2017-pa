@@ -20,7 +20,9 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     case CC_B:  //2
 			*dest = cpu.eflags.CF;
 			break;
-    case CC_E:  //4 
+    case CC_E:  //4
+			printf("i am here\n");
+			printf("zf = %d\n", cpu.eflags.ZF); 
 			*dest = cpu.eflags.ZF;
 			break;
 		case CC_BE: //6
