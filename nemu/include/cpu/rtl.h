@@ -195,6 +195,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 	else if (width == 4) {
 		zf = *result | 0;
 	}
+	if ((*result & (~0u >> ((4 - width) << 3))) == 0)
+		zf = 0;
   cpu.eflags.ZF = (zf == 0) ? 1 : 0;
 }
 
