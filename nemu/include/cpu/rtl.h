@@ -187,13 +187,13 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
 	int zf = 0;
 	if (width == 1) {
-		zf = (*result & 0x000f) | 0;
+		zf = (*result & 0x000000ff) | 0;
 	}
 	else if (width == 2) {
-		zf = (*result & 0x00ff) | 0;
+		zf = (*result & 0x0000ffff) | 0;
 	}
 	else if (width == 4) {
-		zf = (*result & 0xffff) | 0;
+		zf = (*result & 0xffffffff) | 0;
 	}
 	//if ((*result & (~0u >> ((4 - width) << 3))) == 0)
 	//	zf = 1;
