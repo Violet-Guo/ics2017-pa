@@ -17,39 +17,23 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
     case CC_O:  //0
 			*dest = cpu.eflags.OF;
 			break;
-		case CC_NO: //1
-			*dest = !cpu.eflags.OF;
-			break;
     case CC_B:  //2
 			*dest = cpu.eflags.CF;
 			break;
-		case CC_NB: //3
-			*dest = !cpu.eflags.CF;
-			break; 
     case CC_E:  //4 
 			*dest = cpu.eflags.ZF;
 			break;
-    case CC_NE: //5
-			*dest = !cpu.eflags.ZF;
-		  break;
 		case CC_BE: //6
 			*dest = ((cpu.eflags.CF) || (cpu.eflags.ZF));
 			break;
-		case CC_NBE://7
-			*dest = !((cpu.eflags.CF) || (cpu.eflags.ZF));
-			break;
     case CC_S:  //8
-    case CC_NS: //9
-		case CC_L:  //12 c
-			*dest = (cpu.eflags.SF == cpu.eflags.OF);
+			*dest = cpu.eflags.SF;
 			break;
-		case CC_NL: //13 d
+		case CC_L:  //12 c
 			*dest = (cpu.eflags.SF != cpu.eflags.OF);
+			break;
     case CC_LE: //14 e
 			*dest = ((cpu.eflags.ZF) || (cpu.eflags.SF != cpu.eflags.OF));
-			break;
-		case CC_NLE://14 f
-			*dest = !((cpu.eflags.ZF) || (cpu.eflags.SF != cpu.eflags.OF));
 			break;
     default: panic("should not reach here");
     case CC_P: panic("n86 does not have PF");
