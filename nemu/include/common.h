@@ -2,10 +2,10 @@
 #define __COMMON_H__
 
 #define DEBUG
-#define DIFF_TEST
+//#define DIFF_TEST
 
 /* You will define this macro in PA2 */
-#define HAS_IOE
+//#define HAS_IOE
 
 #include "debug.h"
 #include "macro.h"
