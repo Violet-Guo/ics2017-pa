@@ -21,13 +21,8 @@ make_EHelper(xor) {
   rtl_xor(&t2, &id_dest->val, &id_src->val);
 	operand_write(id_dest, &t2);
 	rtl_update_ZFSF(&t2, id_dest->width);
-	if (id_dest->width == 2) {
-		rtl_slt(&t0, &id_dest->val, &id_src->val);
-	}
-	else if (id_dest->width == 4) {
-		rtl_sltu(&t0, &id_dest->val, &id_src->val);
-	}
-	rtl_set_CF(&t0);
+	rtl_set_CF(&tzero);
+	rtl_set_OF(&tzero);
 
   print_asm_template2(xor);
 }
