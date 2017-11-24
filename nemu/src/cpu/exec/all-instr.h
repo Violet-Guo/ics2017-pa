@@ -5,6 +5,7 @@ make_EHelper(movzx);
 make_EHelper(movsx);
 
 make_EHelper(call);
+make_EHelper(call_rm);
 make_EHelper(ret);
 
 make_EHelper(push);
