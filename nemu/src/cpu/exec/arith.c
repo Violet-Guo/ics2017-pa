@@ -6,7 +6,7 @@ make_EHelper(add) {
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
-  rtl_sltu(&t0, &id_dest->val, &id_src->val);
+  rtl_sltu(&t0, &t2, &id_src->val);
   rtl_set_CF(&t0);
 
   rtl_xor(&t0, &id_dest->val, &id_src->val);
@@ -25,7 +25,7 @@ make_EHelper(sub) {
 
   rtl_update_ZFSF(&t2, id_dest->width);
 
-  rtl_sltu(&t0, &id_dest->val, &id_src->val);
+  rtl_sltu(&t0, &id_dest->val, &t2);
   rtl_set_CF(&t0);
 
   rtl_xor(&t0, &id_dest->val, &id_src->val);
