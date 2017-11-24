@@ -6,6 +6,9 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
+	if (id_dest->width == 1) {
+		id_dest->val = (int32_t)(int8_t)id_dest->val;
+	}
 	rtl_push(&id_dest->val);
   print_asm_template1(push);
 }
