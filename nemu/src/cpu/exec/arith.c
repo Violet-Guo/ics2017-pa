@@ -38,8 +38,8 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-	printf("in the cmp\n");
-	printf("id_dest = %x, id_src = %x\n", id_dest->val, id_src->val);
+	//printf("in the cmp\n");
+	//printf("id_dest = %x, id_src = %x\n", id_dest->val, id_src->val);
 	rtl_sub(&t2, &id_dest->val, &id_src->val);
 
   rtl_update_ZFSF(&t2, id_dest->width);
@@ -53,7 +53,7 @@ make_EHelper(cmp) {
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
 
-	printf("zf = %d\tsf = %d\tcf = %d\tof = %d\n", cpu.eflags.ZF, cpu.eflags.SF, cpu.eflags.CF, cpu.eflags.OF);
+	//printf("zf = %d\tsf = %d\tcf = %d\tof = %d\n", cpu.eflags.ZF, cpu.eflags.SF, cpu.eflags.CF, cpu.eflags.OF);
 
   print_asm_template2(cmp);
 }
