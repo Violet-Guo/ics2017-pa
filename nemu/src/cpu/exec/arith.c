@@ -99,6 +99,8 @@ make_EHelper(adc) {
   rtl_add(&t2, &t2, &t1);
   operand_write(id_dest, &t2);
 
+	printf("adc: %d(%x) + %d(%x) + %d = %d(%x)\n", id_dest->val, id_dest->val, id_src->val, id_src->val, t1, t3, t3);
+
   rtl_update_ZFSF(&t2, id_dest->width);
 
   rtl_sltu(&t0, &t2, &id_dest->val);
