@@ -38,6 +38,8 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
+	printf("in the cmp\n");
+	printf("id_dest = %x, id_src = %x\n", id_dest->val, id_src->val);
 	rtl_sub(&t2, &id_dest->val, &id_src->val);
 
   rtl_update_ZFSF(&t2, id_dest->width);
