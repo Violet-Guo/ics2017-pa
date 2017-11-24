@@ -51,6 +51,8 @@ make_EHelper(cmp) {
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
 
+	printf("zf = %d\tsf = %d\tcf = %d\tof = %d\n", cpu.eflags.ZF, cpu.eflags.SF, cpu.eflags.CF, cpu.eflags.OF);
+
   print_asm_template2(cmp);
 }
 
