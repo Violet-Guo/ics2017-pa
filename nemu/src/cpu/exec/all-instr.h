@@ -36,6 +36,7 @@ make_EHelper(cmp);
 make_EHelper(lea);
 
 make_EHelper(jmp);
+make_EHelper(jmp_rm);
 make_EHelper(jcc);
 
 make_EHelper(test);
