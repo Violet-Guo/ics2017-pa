@@ -28,6 +28,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 		case CC_BE: //6
 			printf("switch = %x\n", subcode&0xe); 
 			*dest = ((cpu.eflags.CF) || (cpu.eflags.ZF));
+			printf("dest = %d\n", *dest);
 			break;
     case CC_S:  //8
 			*dest = cpu.eflags.SF;
