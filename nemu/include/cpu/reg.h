@@ -37,7 +37,7 @@ typedef struct {
 
 	union
   {
-			//rtlreg_t eflags_init;
+			rtlreg_t eflags_init;
       struct
       {
           unsigned int CF:1;
