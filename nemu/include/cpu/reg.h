@@ -33,9 +33,11 @@ typedef struct {
   };
 
   vaddr_t eip;
+	unsigned int cs;
 
 	union
   {
+			//rtlreg_t eflags_init;
       struct
       {
           unsigned int CF:1;
@@ -44,7 +46,6 @@ typedef struct {
           unsigned int IF:1;
           unsigned int OF:1;
       };
-
   }eflags;
 
 } CPU_state;

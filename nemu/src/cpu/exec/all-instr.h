@@ -57,3 +57,4 @@ make_EHelper(nemu_trap);
 
 make_EHelper(out);
 make_EHelper(in);
+make_EHelper(int);
