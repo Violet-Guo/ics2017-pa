@@ -4,8 +4,13 @@ void diff_test_skip_qemu();
 void diff_test_skip_nemu();
 
 make_EHelper(lidt) {
-  TODO();
-
+	cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
+	if (decoding.is_operand_size_16) {
+		cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4) & 0x00ffffff;
+	}
+	else {
+		cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);	
+	}
   print_asm_template1(lidt);
 }
 
