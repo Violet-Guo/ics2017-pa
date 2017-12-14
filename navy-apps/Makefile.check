@@ -1,4 +1,5 @@
-ISA ?= native
+#ISA ?= native
+ISA ?= x86
 ifeq ($(NAVY_HOME), )
   $(error Must set NAVY_HOME environment variable)
 endif
