@@ -11,6 +11,9 @@
 
 // FIXME: this is temporary
 
+extern char _end;
+intptr_t program_break = (intptr_t)&_end;
+
 int _syscall_(int type, uintptr_t a0, uintptr_t a1, uintptr_t a2){
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
@@ -26,11 +29,18 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count){
-  _exit(SYS_write);
+	_syscall_(SYS_write, fd, (uintptr_t)buf, count); 
+  //_exit(SYS_write);
 }
 
 void *_sbrk(intptr_t increment){
-  return (void *)-1;
+	intptr_t new_pb = program_break + increment;
+  if (_syscall_(SYS_brk, new_pb, 0, 0) == 0) {
+		return (void *)program_break;
+	}
+	else {
+		return (void *)-1;
+	}
 }
 
 int _read(int fd, void *buf, size_t count) {
