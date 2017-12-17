@@ -5,6 +5,8 @@ extern char _end;
 extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern ssize_t fs_write(int fd, const void *buf, size_t len);
 extern int fs_open(const char *pathname, int flags, int mode);
+extern off_t fs_lseek(int fd, off_t offset, int whence);
+extern int fs_close(int fd);
 
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
 	printf("\ni am here\n");
@@ -38,12 +40,20 @@ _RegSet* do_syscall(_RegSet *r) {
 			//result = sys_write(a[1], (void *)a[2], a[3]);
 			result = fs_write(a[1], (void *)a[2], a[3]);
 			break;
+		case SYS_read:
+			result = fs_read(a[1], (void *)a[2], a[3]);
+			break;
 		case SYS_brk:
 			result = 0;
-			printf("!!!!!\n");
 			break;
 		case SYS_open:
 			result = fs_open((char *)a[1], a[2], a[3]);
+			break;
+		case SYS_close:
+			result = fs_close(a[1]);
+			break;
+		case SYS_lseek:
+			result = fs_lseek(a[1], a[2], a[3]);
 			break;
 		default: panic("Unhandled syscall ID = %d", a[0]);
   }

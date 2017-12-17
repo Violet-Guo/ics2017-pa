@@ -31,6 +31,7 @@ int main() {
   init_fs();
 
   uint32_t entry = loader(NULL, "/bin/text");
+	Log("entry : %d", entry);
   printf("entry = %d\n", entry);
 	((void (*)(void))entry)();
 
