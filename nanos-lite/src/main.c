@@ -30,8 +30,9 @@ int main() {
 
   init_fs();
 
-  uint32_t entry = loader(NULL, NULL);
-  ((void (*)(void))entry)();
+  uint32_t entry = loader(NULL, "/bin/text");
+  printf("entry = %d\n", entry);
+	((void (*)(void))entry)();
 
   panic("Should not reach here");
 }
