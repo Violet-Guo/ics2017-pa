@@ -9,7 +9,6 @@ extern off_t fs_lseek(int fd, off_t offset, int whence);
 extern int fs_close(int fd);
 
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
-	printf("\ni am here\n");
 	uintptr_t i = 0;
 	if (fd == 1 || fd == 2) {
 		for(; count > 0; count--) {
@@ -27,7 +26,7 @@ _RegSet* do_syscall(_RegSet *r) {
 	a[2] = SYSCALL_ARG3(r);
 	a[3] = SYSCALL_ARG4(r);
 
-	printf("a[0] = %d\n", a[0]);
+	//printf("a[0] = %d\n", a[0]);
 
   switch (a[0]) {
 		case SYS_none:
