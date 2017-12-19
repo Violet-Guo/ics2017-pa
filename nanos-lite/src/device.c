@@ -9,7 +9,22 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t len) {
-  return 0;
+  int key = _read_key();
+	bool down = false;
+	//Log("key = %d\n", key);
+	if (key & 0x8000) {
+		key ^= 0x8000;
+		down = true;
+	}
+	if (key == _KEY_NONE) {
+		unsigned long t = _uptime();
+		sprintf(buf, "t %d\n", t);
+	}
+	else {
+		//Log("I am here~\n");
+		sprintf(buf, "%s %s\n", down ? "kd" : "ku", keyname[key]);
+	}
+	return strlen(buf);
 }
 
 static char dispinfo[128] __attribute__((used));
@@ -21,12 +36,14 @@ void dispinfo_read(void *buf, off_t offset, size_t len) {
 void fb_write(const void *buf, off_t offset, size_t len) {
 	int x, y;
 	int len1, len2, len3;
-	offset /= 4;
+	//offset /= 4;
+	offset = offset >> 2;
 	y = offset / _screen.width;
 	x = offset % _screen.width;
 	
   //Log("fb_write x:%d y:%d len:%d\n", x, y, len);
-	len /= 4;
+	//len /= 4;
+	len = len >> 2;
 	len1 = len2 = len3 = 0;
 	
 	// the first line
@@ -35,7 +52,8 @@ void fb_write(const void *buf, off_t offset, size_t len) {
 
 	// the middle line
 	if (len > len1 && ((len - len1) > _screen.width))	{
-		len2 = (len - len1) / _screen.width * _screen.width;
+		//len2 = (len - len1) / _screen.width * _screen.width;
+		len2 = len - len1;
 		_draw_rect((uint32_t *)buf + len1, 0, y + 1, _screen.width, len2 / _screen.width);
 	}	
 
