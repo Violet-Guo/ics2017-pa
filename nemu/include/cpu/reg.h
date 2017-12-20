@@ -39,9 +39,12 @@ typedef struct {
 		rtlreg_t eflags_init;
 		struct {
 			unsigned int CF:1;
+			unsigned int   :5;
 			unsigned int ZF:1;
 			unsigned int SF:1;
+			unsigned int TF:1;
 			unsigned int IF:1;
+			unsigned int DF:1;
 			unsigned int OF:1;
 		};
 	} eflags;
