@@ -38,7 +38,19 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 	printf("addr = %u, len = %d, addr & 0x003ff000 = %u, addr + len & = %u\n", addr, len, (addr & 0x003ff000), ((addr+len) & 0x003ff000));
 	if (((addr & 0xfff) + len) > 0x1000) {
 		/* this is a special case, you can handle it later. */
-		assert(0);
+		int point = 1;
+		paddr_t paddr, low, high;
+		while(((addr + point) & 0x00000fff) != 0) {
+			point++;
+		}
+		// get the high address and the low address
+		paddr = page_translate(addr, false);
+		low = paddr_read(paddr, point - 1);
+		paddr = page_translate(addr + point, false);
+		high = paddr_read(paddr, len - point + 1);
+		paddr = (high << (point << 3)) + low;
+		
+		return paddr;
 	}
 	else {
 		paddr_t paddr = page_translate(addr, false);
