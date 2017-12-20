@@ -35,7 +35,8 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   //return paddr_read(addr, len);
-	if ((addr & 0x003ff000) != ((addr + len) & 0x003ff000)) {
+	//if ((addr & 0x003ff000) != ((addr + len) & 0x003ff000)) {
+	if (((addr & 0xfff) + len) > 0x1000) {
 		/* this is a special case, you can handle it later. */
 		assert(0);
 	}
