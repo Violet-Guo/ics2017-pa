@@ -43,10 +43,12 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 		point = (int)((addr & 0xfff) + len - 0x1000);
 		// get the low address
 		paddr = page_translate(addr, false);
-		low = paddr_read(paddr, len - point);
+		//low = paddr_read(paddr, len - point);
+		high = paddr_read(paddr, len - point);
 		// get the low address
 		paddr = page_translate(addr + len - point, false);
-		high = paddr_read(paddr, point);
+		//high = paddr_read(paddr, point);
+		low = paddr_read(paddr, point);
 		paddr = (high << ((len - point) << 3)) + low;
 		
 		return paddr;
@@ -67,15 +69,20 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 		// calculate the split point 
 		point = (int)((addr & 0xfff) + len - 0x1000);
 		// split the date into the high and low
-		low = (data << (point << 3)) >> (point <<3);
-		high = data >> ((len - point) << 3);
+		//low = (data << (point << 3)) >> (point <<3);
+		//high = data >> ((len - point) << 3);
+		high = (data << (point << 3)) >> (point <<3);
+		low = data >> ((len - point) << 3);
+	
 		//Log("addr = %x, high = %x, low = %x, point = %d", addr, high, low, point);
 		// store the low data
 		paddr = page_translate(addr, true);
-		paddr_write(paddr, len - point, low);
+		//paddr_write(paddr, len - point, low);
+		paddr_write(paddr, len - point, high);
 		// store the high data
 		paddr = page_translate(addr + len - point, true);
-		paddr_write(paddr, point, high);
+		//paddr_write(paddr, point, high);
+		paddr_write(paddr, point, low);
 	}
 	else {
 		//Log("i am here~");
