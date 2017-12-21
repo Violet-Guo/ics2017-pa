@@ -34,21 +34,20 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  //return paddr_read(addr, len);
 	//printf("addr = %u, len = %d, addr & 0x003ff000 = %u, addr + len & = %u\n", addr, len, (addr & 0x003ff000), ((addr+len) & 0x003ff000));
 	if (((addr & 0xfff) + len) > 0x1000) {
 		/* this is a special case, you can handle it later. */
-		int point = 1;
+		int point;
 		paddr_t paddr, low, high;
-		while(((addr + point) & 0x00000fff) != 0) {
-			point++;
-		}
-		// get the high address and the low address
+		// calculate the split point
+		point = (int)((addr & 0xfff) + len - 0x1000);
+		// get the high address
 		paddr = page_translate(addr, false);
-		low = paddr_read(paddr, point);
-		paddr = page_translate(addr + point, false);
 		high = paddr_read(paddr, len - point);
-		paddr = (high << (point << 3)) + low;
+		// get the low address
+		paddr = page_translate(addr + len - point, false);
+		low = paddr_read(paddr, point);
+		paddr = (high << ((len - point)  << 3)) + low;
 		
 		return paddr;
 	}
@@ -56,10 +55,31 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 		paddr_t paddr = page_translate(addr, false);
 		return paddr_read(paddr, len);
 	}
+  //return paddr_read(addr, len);
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-  paddr_write(addr, len, data);
+	if (((addr & 0xfff) + len) > 0x1000) {
+		int point;
+		uint32_t low, high;
+		paddr_t paddr;
+		// calculate the split point 
+		point = (int)((addr & 0xfff) + len - 0x1000);
+		// split the date into the high and low
+		high = data >> (point << 3);
+		low = (data << ((len - point) << 3) >> ((len - point) << 3));
+		// store the high data
+		paddr = page_translate(addr, true);
+		paddr_write(paddr, len - point, high);
+		// store the low data
+		paddr = page_translate(addr + len - point, true);
+		paddr_write(paddr, point, low);
+	}
+	else {
+		paddr_t paddr = page_translate(addr, true);
+		paddr_write(paddr, len, data);
+	}
+	//paddr_write(addr, len, data;
 }
 
 uint32_t page_translate(vaddr_t addr, bool iswrite) {
