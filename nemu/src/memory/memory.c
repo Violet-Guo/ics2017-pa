@@ -34,8 +34,8 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-	Log("in the read!!!!!!!!!!!!!!!!!!!!!!!!");
 	if (((addr & 0xfff) + len) > 0x1000) {
+		Log("in the read!!!!!!!!!!!!!!!!!!!!!!!!");
 		/* this is a special case, you can handle it later. */
 		int point;
 		paddr_t paddr, low, high;
