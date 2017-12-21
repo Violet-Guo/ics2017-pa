@@ -59,6 +59,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
+	Log("addr = %x", addr);
 	if (((addr & 0xfff) + len) > 0x1000) {
 		int point;
 		uint32_t low, high;
@@ -77,6 +78,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 		paddr_write(paddr, point, low);
 	}
 	else {
+		Log("i am here~");
 		paddr_t paddr = page_translate(addr, true);
 		paddr_write(paddr, len, data);
 	}
