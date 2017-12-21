@@ -72,8 +72,8 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 		// split the date into the high and low
 		//low = (data << (point << 3)) >> (point << 3);
 		//high = data >> ((len - point) << 3);
-		high = (data << (point << 3)) >> (point << 3);
-		low = data >> ((len - point) << 3);
+		low = (data << ((len - point) << 3)) >> ((len - point) << 3);
+		high = data >> (point << 3);
 	
 		//Log("addr = %x, high = %x, low = %x, point = %d", addr, high, low, point);
 		// store the low data
