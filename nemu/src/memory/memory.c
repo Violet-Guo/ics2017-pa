@@ -49,7 +49,8 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 		paddr = page_translate(addr + len - point, false);
 		//high = paddr_read(paddr, point);
 		low = paddr_read(paddr, point);
-		paddr = (high << ((len - point) << 3)) + low;
+		//paddr = (high << ((len - point) << 3)) + low;
+		paddr = (high << (point << 3)) + low;
 		
 		return paddr;
 	}
@@ -69,9 +70,9 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 		// calculate the split point 
 		point = (int)((addr & 0xfff) + len - 0x1000);
 		// split the date into the high and low
-		//low = (data << (point << 3)) >> (point <<3);
+		//low = (data << (point << 3)) >> (point << 3);
 		//high = data >> ((len - point) << 3);
-		high = (data << (point << 3)) >> (point <<3);
+		high = (data << (point << 3)) >> (point << 3);
 		low = data >> ((len - point) << 3);
 	
 		//Log("addr = %x, high = %x, low = %x, point = %d", addr, high, low, point);
