@@ -45,9 +45,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 		}
 		// get the high address and the low address
 		paddr = page_translate(addr, false);
-		low = paddr_read(paddr, point - 1);
+		low = paddr_read(paddr, point);
 		paddr = page_translate(addr + point, false);
-		high = paddr_read(paddr, len - point + 1);
+		high = paddr_read(paddr, len - point);
 		paddr = (high << (point << 3)) + low;
 		
 		return paddr;
