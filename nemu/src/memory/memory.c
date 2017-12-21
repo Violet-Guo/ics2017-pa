@@ -35,7 +35,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
 	if (((addr & 0xfff) + len) > 0x1000) {
-		Log("in the read!!!!!!!!!!!!!!!!!!!!!!!!");
+		//Log("in the read!!!!!!!!!!!!!!!!!!!!!!!!");
 		/* this is a special case, you can handle it later. */
 		int point;
 		paddr_t paddr, low, high;
@@ -59,7 +59,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-	Log("addr = %x, len = %d", addr, len);
+	//Log("addr = %x, len = %d", addr, len);
 	if (((addr & 0xfff) + len) > 0x1000) {
 		int point;
 		uint32_t low, high;
@@ -69,7 +69,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 		// split the date into the high and low
 		high = data >> (point << 3);
 		low = (data << ((len - point) << 3) >> ((len - point) << 3));
-		Log("addr = %x, high = %x, low = %x, point = %d", addr, high, low, point);
+		//Log("addr = %x, high = %x, low = %x, point = %d", addr, high, low, point);
 		// store the high data
 		paddr = page_translate(addr, true);
 		paddr_write(paddr, len - point, high);
@@ -78,7 +78,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
 		paddr_write(paddr, point, low);
 	}
 	else {
-		Log("i am here~");
+		//Log("i am here~");
 		paddr_t paddr = page_translate(addr, true);
 		paddr_write(paddr, len, data);
 	}
