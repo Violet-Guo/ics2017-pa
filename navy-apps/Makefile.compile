@@ -23,7 +23,8 @@ ifeq ($(LINK), dynamic)
   CXXFLAGS += -fPIE
   LDFLAGS  += -fpie -shared
 else
-  LDFLAGS += -Ttext 0x4000000
+#  LDFLAGS += -Ttext 0x4000000
+  LDFLAGS += -Ttext 0x8048000
 endif
 
 ifeq ($(ISA), mips32)

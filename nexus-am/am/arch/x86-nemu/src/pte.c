@@ -66,6 +66,18 @@ void _switch(_Protect *p) {
 }
 
 void _map(_Protect *p, void *va, void *pa) {
+	PDE *dir_base = (PDE *)(p->ptr);
+	//uint32_t page = ((uint32_t)va >> 12) & 0x000003ff;
+	//uint32_t dir = ((uint32_t)va >> 22) & 0x000003ff;
+	uint32_t page = PTX(va);
+	uint32_t dir = PDX(va);
+	// if the present bit is 0,palloc one 
+	if (!(dir_base[dir] & 0x1)) {
+		PTE *uptab = (PTE *)(palloc_f());
+		dir[dir_base]  = (uint32_t)uptab | 0x1;
+	}
+	PTE * page_base = (PTE *)(dir[dir_base] & 0xfffff000);
+	page_base[page] = (uint32_t)pa | 0x1;
 }
 
 void _unmap(_Protect *p, void *va) {

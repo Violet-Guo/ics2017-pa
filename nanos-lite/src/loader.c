@@ -25,11 +25,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
 	void *vaddr, *page;
 	vaddr = DEFAULT_ENTRY;
 
-	//printf("filesize = %x\n", filesize);
-	//printf("filesize - PGSIZE = %x\n", filesize - PGSIZE);
-	//printf("filesize - 3*PASIZE = %x\n", filesize - 3*PGSIZE);
-	//printf("filesize - 5*PASIZE = %x\n", filesize - 5*PGSIZE);
-
 	while (filesize > 0) {
 		page = new_page();
 		_map(as, vaddr, page);
