@@ -92,7 +92,7 @@ uint32_t page_translate(vaddr_t addr, bool iswrite) {
 		paddr_t pde = paddr_read(pde_address, 4);
 		if (!(pde & 0x1)) {
 			Log("addr = 0x%x, iswrite = %d", addr, iswrite);
-			Log("pde = 0x%x", pde);
+			Log("pde = 0x%x, pde_base = 0x%x, pde_address = 0x%x", pde, pde_base, pde_address);
 			assert(0);
 		}
 
