@@ -74,15 +74,32 @@ void _map(_Protect *p, void *va, void *pa) {
 	// if the present bit is 0,palloc one 
 	if (!(dir_base[dir] & 0x1)) {
 		PTE *uptab = (PTE *)(palloc_f());
-		dir_base[dir]  = (uint32_t)uptab | 0x1;
+		dir_base[dir]  = (uint32_t)uptab | PTE_P;
 	}
 	PTE * page_base = (PTE *)(dir_base[dir] & 0xfffff000);
-	page_base[page] = (uint32_t)pa | 0x1;
+	PTE * pte = &page_base[page];
+	*pte = (uint32_t)pa | PTE_P;
 }
 
 void _unmap(_Protect *p, void *va) {
 }
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[]) {
-  return NULL;
+	uint32_t *ptr = ustack.end;
+  //printf("ptr 0x%-8x\n", ptr);
+  //printf("end 0x%-8x\n", ustack.end);
+  //the stack frame of _start
+  for (int i = 0; i < 8; i++) 
+	*ptr-- = 0x0; 
+
+  *ptr-- = 0x2; //eflags
+  *ptr-- = 0x8; //cs
+  *ptr-- = (uint32_t)entry; 
+  *ptr-- = 0x0; //error code
+  *ptr-- = 0x81; //irq id
+  for (int i = 0; i < 8; i++)
+	*ptr-- = 0x0;
+  ptr++;
+  //printf("regset 0x%-8x\n", ptr);
+  return (_RegSet *)ptr;
 }

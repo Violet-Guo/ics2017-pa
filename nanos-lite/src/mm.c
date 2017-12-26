@@ -34,6 +34,7 @@ int mm_brk(uint32_t new_brk) {
 				va += PGSIZE;
 				len -= PGSIZE;
 			}
+			//current->max_brk = va;
 			current->max_brk = new_brk;
 		}
 		current->cur_brk = new_brk;
