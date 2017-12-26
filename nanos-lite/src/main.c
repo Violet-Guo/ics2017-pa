@@ -10,6 +10,8 @@ void init_device(void);
 void init_irq(void);
 void init_fs(void);
 uint32_t loader(_Protect *, const char *);
+
+extern void _trap();
 extern void load_prog(const char *);
 
 int main() {

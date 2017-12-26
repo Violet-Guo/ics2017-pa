@@ -54,6 +54,9 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 	//Log("in the read, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
 	switch(fd) {
 		case FD_STDOUT:
+		case FD_STDERR:
+		case FD_STDIN:
+			return 0;
 		case FD_FB:
 			//Log("in the fs_read fd_fb\n");
 			break;
@@ -95,6 +98,8 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
 			// write to frame buffer
 			fb_write(buf, file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
+			break;
+		case FD_DISPINFO:
 			break;
 		default:
 			// write to ramdisk

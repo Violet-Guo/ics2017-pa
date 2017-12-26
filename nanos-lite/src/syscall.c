@@ -1,6 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 
+extern void _halt(int code);
 extern char _end;
 extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern ssize_t fs_write(int fd, const void *buf, size_t len);
@@ -27,7 +28,7 @@ _RegSet* do_syscall(_RegSet *r) {
 	a[2] = SYSCALL_ARG3(r);
 	a[3] = SYSCALL_ARG4(r);
 
-	printf("a[0] = %d\n", a[0]);
+	//printf("a[0] = %d\n", a[0]);
 
   switch (a[0]) {
 		case SYS_none:
@@ -59,6 +60,6 @@ _RegSet* do_syscall(_RegSet *r) {
   }
 	
 	SYSCALL_ARG1(r) = result;
-
-  return NULL;
+	
+  return r;
 }

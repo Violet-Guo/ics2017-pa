@@ -27,14 +27,27 @@ void load_prog(const char *filename) {
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
 }
 
+int cnt = 0;
+
 _RegSet* schedule(_RegSet *prev) {
 	// save the context pointer
 	current->tf = prev;
+	cnt++;
+
 	// always select pcb[0] as the new process
 	//current = &pcb[0];
-	current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+	//current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+	if (cnt % 100 == 0) {
+		current = &pcb[1];
+	}
+	else {
+		current = &pcb[0];
+	}
+
 	// TODO: switch to the new address space,
 	// then return the new context
+	//Log("current->as = %x, current->tf = %x", current->as, current->tf);
 	_switch(&current->as);
+	//Log("current->as = %x, current->tf = %x", current->as, current->tf);
   return current->tf;
 }
